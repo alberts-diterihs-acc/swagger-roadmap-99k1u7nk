@@ -1,9 +1,13 @@
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import patientRouter from './routes/patientRouter.js';
+import swaggerSpec from './swagger.js';
 
 const app = express(); 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.get('/', (req, res) => {
   res.send('API is running. Navigate to /api/v1/patients to interact with the API.');
